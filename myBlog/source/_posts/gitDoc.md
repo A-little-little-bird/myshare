@@ -1,6 +1,5 @@
 ---
-title: gitDoc
-comments: true
+title: Git文档
 date: 2019-05-26 09:35:44
 tags: Git
 categories: 使用文档

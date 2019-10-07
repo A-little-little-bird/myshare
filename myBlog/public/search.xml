@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA['python爬虫']]></title>
+    <url>%2F2019%2F10%2F07%2Fpython%E7%88%AC%E8%99%AB%2F</url>
+    <content type="text"><![CDATA[爬虫使用范围广泛，对于程序员或者学者来说，可谓必备基础技能之一。而且满足日常数据分析的要求并不需要深入学习爬虫，简单了解爬虫的基本原理，以及与爬虫相关的常用包就能够快速使用。为了明晰爬虫学习流程、加深自身的记忆，特整理文档记录所学。 爬虫基本流程学习爬虫之前不防先从宏观角度，了解爬虫的全部流程。爬虫简单来说，可以分为以下四步： 获取url 发送请求，获取页面 解析页面，获取所需内容 内容存储 这只是简单的描述，实际过程中不可能只爬取一个页面内容。对于爬取多个页面的情况，或者事先准备需要爬取的全部页面链接，或者在爬取过程中动态向爬取队列中添加新的页面链接。 常用爬虫包 请求包：request解析包：lxml，Beautiful Soup，XPth相关包的使用不做具体介绍，通过实操能够很快掌握 爬虫框架Scarpy为了简化爬虫代码的书写，使用框架能够帮助我们快速实现需求。Scrapy是非常优秀的爬虫框架，将会作为我今后优先使用的框架，所以重点学习一下。 Scrapy 重要的模块： spider. 用户使用过程中不可避免的模块，请求与解析操作都将在此模块中完成。pipelines. 数据后续处理，如存储操作。items. 数据的格式规范。 接下来详细介绍一下这几个模块。 Spider可使用 genspider spider名 域名```12345678910111213141516创建新的spider模块。spider模块有一些比较重要的基础：&gt; **name**. 爬虫名称，是定义Spider名字的名字，必须唯一。&gt; **allowed_domains**. 允许爬取的域名，是可选配置，不在此范围的链接不会被跟进爬取 。&gt; **start_urls**. 起始的URL列表，当我们没有实现 start_requests()方法时,默认会从这个列表开始抓取。**start_requests().** 此方法用于生成初始请求，它必须返回一个可迭代对象 。 此方法会默认使用 start_urls 里面的URL来构造Request，而且Request是GET 请求方式。如果我们想在启动时以 POST方式访问某个站点，可以直接重写这个方法，发送 POST请求时使用 FormRequest即可 。&gt; **parse()**. 当Response没有指定回调函数时，该方法会默认被调用。它负责处理 Response，处理返回结果，并从中提取想要的数据和下一步的请求，然后返回。该方法需要返回一个包含Request或 ltem的可迭代对象。##### piplines使用piplines需要在settings.py文件中配置。只要piplines被配置，Spider里面返回的Item都将依次被配置的piplines处理，但是可使用条件跳过无关处理过程。我们可以自定义ItemPipeline，只需要实现指定的方法，其中必须要实现的一个方法是：```process_item(item, spider)]]></content>
+      <categories>
+        <category>技术文档</category>
+      </categories>
+      <tags>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[查找树中节点的编号]]></title>
+    <url>%2F2019%2F06%2F08%2FtreeNum%2F</url>
+    <content type="text"><![CDATA[问题描述 给定一棵树，树中各节点的默认编号按照深度优先遍历排序。现给定一节点数组，请返回这组节点所对应的编号数组。 例如： 12345 8 对应编号:1 2 3 4 5 6 7 / \ 如左图，各节点按序访问为:[8,5,2,4,7,6,9], 5 7 若给定查询数组为:[7,4],则返回值应该为:[5,4] / \ / \2 4 6 9 解决方案 暂时以解决问题优先，之后若有新的思路再进行优化。树的深度优先遍历使用递归方式能够简明实现，但问题中需要返回命中节点的序号，因此再遍历的时候还需要加上全局的index，记录节点的访问次序。基本流程如下：1）从目标数组中取出需要查找的节点；2）遍历树开始查找节点位置（假定该节点一定存在此树中）；3）依次遍历树的节点，若节点为空直接返回；4）若节点不为空，则比对值是否相等，相等将序号加入返回数组；5）若不等，判断该节点是否有子树，无直接返回，有则递归，从 3）开始遍历子树； 具体代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869/**/* 使用js代码为例（实际需要）/* 递归查找函数/* z_tree为树，targetID为查找节点，index为节点编号，select为返回数组/**function findIndex(z_tree,targetID,index,select) &#123; if(z_tree)&#123; if(z_tree.ID==targetID)&#123; select.push(index.count); &#125; else if(z_tree.child)&#123; for(var i=0;i&lt;z_tree.child.length;i++)&#123; index.count++; findIndex(z_tree.child[i],targetID,index,select); &#125; &#125; &#125;&#125;;// 创建树var z_tree=&#123; ID:&apos;asd001&apos;, child:[ &#123; ID:&apos;asd002&apos;, child:[ &#123; ID:&apos;asd005&apos;, &#125;, &#123; ID:&apos;asd006&apos;, &#125; ] &#125;, &#123; ID:&apos;asd003&apos;, child:[ &#123; ID:&apos;asd007&apos;, &#125;, &#123; ID:&apos;asd008&apos;, &#125; ] &#125;, &#123; ID:&apos;asd004&apos;, child:[ &#123; ID:&apos;asd009&apos;, &#125;, &#123; ID:&apos;asd010&apos;, &#125; ] &#125; ],&#125;// 目标节点数组var targetID=[&apos;asd008&apos;,&apos;asd002&apos;];// 节点编号（使用对象构建引用类型）var index=&#123;count:1&#125;;// 返回数组var select=[];// 开始遍历for(var i=0;i&lt;targetID.length;i++)&#123; index.count=1; // 每次遍历前初始化序号 findIndex(z_tree,targetID[i],index,select);&#125;console.log(select)]]></content>
+      <categories>
+        <category>实际问题</category>
+      </categories>
+      <tags>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git文档]]></title>
+    <url>%2F2019%2F05%2F26%2FgitDoc%2F</url>
+    <content type="text"><![CDATA[基本概念首先，来理解一下Git下工作区、暂存区和版本库概念 工作区：就是能够在电脑里能看到的目录。 暂存区：英文名叫stage或者index。一般存放在”git目录”下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。 版本库：工作区有一个隐藏目录 .git，这个不算工作区，而是Git的版本库。 下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系]]></content>
+      <categories>
+        <category>使用文档</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo文档]]></title>
+    <url>%2F2019%2F05%2F26%2Fhexo%2F</url>
+    <content type="text"><![CDATA[欢迎使用 Hexo! 初次使用Hexo发布文章，可以查看 帮助文档 获取更多信息. 如果你在使用Hexo过程中遇到问题, 你能够在 疑难解答找到解决方式 或者通过 GitHub直接询问我. 快速开始创建新的发布1$ hexo new post "My New Post" 更多内容: Writing 启动服务器1$ hexo server 更多内容: Server 生成静态html文件1$ hexo generate 更多内容: Generating 发布到远程仓库1$ hexo deploy 更多内容: Deployment]]></content>
+      <categories>
+        <category>使用文档</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
