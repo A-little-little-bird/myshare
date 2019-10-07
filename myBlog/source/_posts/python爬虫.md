@@ -1,5 +1,5 @@
 ---
-title: '''python爬虫'''
+title: python爬虫
 comments: true
 date: 2019-10-07 13:06:52
 tags: 爬虫
@@ -20,7 +20,7 @@ categories: 技术文档
 
 这只是简单的描述，实际过程中不可能只爬取一个页面内容。对于爬取多个页面的情况，或者事先准备需要爬取的全部页面链接，或者在爬取过程中动态向爬取队列中添加新的页面链接。
 
-![爬虫流程图](./python爬虫/爬虫流程.png)
+![爬虫流程图](./爬虫流程.png)
 
 ####  常用爬虫包
 > 请求包：request
@@ -30,7 +30,7 @@ categories: 技术文档
 #### 爬虫框架Scarpy
 为了简化爬虫代码的书写，使用框架能够帮助我们快速实现需求。Scrapy是非常优秀的爬虫框架，将会作为我今后优先使用的框架，所以重点学习一下。
 
-![爬虫流程图](./python爬虫/scrapy框架.png)
+![爬虫流程图](./scrapy框架.png)
 
 ###### Scrapy 重要的模块：
 > spider.  用户使用过程中不可避免的模块，请求与解析操作都将在此模块中完成。
@@ -55,7 +55,5 @@ categories: 技术文档
 
 使用piplines需要在settings.py文件中配置。只要piplines被配置，Spider里面返回的Item都将依次被配置的piplines处理，但是可使用条件跳过无关处理过程。
 
-我们可以自定义ItemPipeline，只需要实现指定的方法，其中必须要实现的一个方法是：
-
-```process_item(item, spider)```
+我们可以自定义ItemPipeline，只需要实现指定的方法，其中必须要实现的一个方法是：process_item(item, spider)
 
